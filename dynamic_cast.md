@@ -35,7 +35,7 @@ RTTI如何工作：
 Type *pm = dynamic_cast<Type*>(pt);
 ```
 
-如果`*pt`实例是`Type`类型或者是其直接或间接子类，上述语句将`pt`转化为一个`Type*`类型的指针，否则，返回`nullptr`。
+如果`*pt`实例是`Type`类型或者是其直接或间接公共集成的子类，上述语句将`pt`转化为一个`Type*`类型的指针，否则，返回`nullptr`。
 
 `dynamic_cast`主要用于向下转型，即：从基类到子类的类型转换。
 
