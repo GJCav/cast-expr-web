@@ -220,9 +220,13 @@ MSVC、g++、clang编译运行结果：
 
 ## `static_cast`
 
-> 补充 接受其他类型对象对作为参数的构造函数存在时 对这个的影响
+### 语法
 
+```c++
+static_cast<type-name>(expression);
+```
 
+上述转换只有在`expression`
 
 
 
