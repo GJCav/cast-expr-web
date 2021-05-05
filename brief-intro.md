@@ -155,7 +155,7 @@ try{
 
 ### 目的
 
-该类型转换运算符的目的单纯是为了改变变量的`const`性和`volatile`性。
+该类型转换运算符的目的单纯是为了改变指针或引用的`const`性和`volatile`性。
 
 `const_cast`表达式的目的是偶尔我们会有修改一个大部分时间都是`const`变量的需求，在这种情况下，我们可以把这个变量声明为`const`的然后在需要修改的时候使用`const_cast`。当然我们可以使用C语言风格的类型转换，但使用`const_cast`总能在我们头脑发热时为我们检查一下，给出一些错误信息或者警告。
 
@@ -167,12 +167,12 @@ try{
 const_cast<type-name>(expression)
 ```
 
-其中`type-name`和`expression`除了`cv-qualifier`之外必须是同一个类型，如果条件不满足，一般来说编译器会报错。
+其中`type-name`和`expression`除了`cv-qualifier`之外必须是同一个指针或引用类型，如果条件不满足，一般来说编译器会报错。
 
 例如：
 
 ```c++
-// 吧下述代码转换一下
+// snippet: brief-intro-con-1.cpp, line 4-13.
 // Low 是 High 的基类
 High bar;
 const High *pBar = &bar;
@@ -188,16 +188,16 @@ const Low * pl = const_cast<const Low*> (pBar);	// invalid
 但是`const_cast`对`const`性的移除也不是非常强大，在使用时甚至会有一些未定义行为。`const_cast`允许我们修改一个指针对一个量的可访问性，但修改一个别声明为`const`的量的值是一个未定义行为，例如下述代码。
 
 ```c++
-// snippet: 后面再新建
-void change(const int *p, int d){
-    int* pc = const_cast<int*>(pt);
+// snippet: brief-intro-con-1.cpp, line 15-28
+void change(const int* p, int d) {
+    int* pc = const_cast<int*>(p);
     *pc += d;
 }
 
-void test(){
+void run2() {
     int valA = 100;
     const int valB = 100;
-    
+
     cout << valA << " " << valB << endl;
     change(&valA, 20);
     change(&valB, 20);
@@ -205,7 +205,9 @@ void test(){
 }
 ```
 
-再`change`中，因为`const_cast`移除了`pt`的`const`性，所以编译器允许`*pc += n;`语句的存在。但是`valB`被声明为`const`的，编译器可能会保护这个值，防止对他进行任何修改，所以一个可能的输出就是：
+再`change`中，因为`const_cast`移除了`pt`的`const`性，所以编译器允许`*pc += n;`语句的存在。但是`valB`被声明为`const`的，编译器可能会保护这个值，防止对他进行任何修改，C++标准并没有对这种行为作出定义，所以可能出现编译器依赖的行为。
+
+MSVC、g++、clang编译运行结果：
 
 ```
 100 100
@@ -213,6 +215,8 @@ void test(){
 ```
 
 这就可能给我们的代码埋下难以察觉的Bug，毕竟一个指针所在代码位置可能和声明变量的位置隔了十万八千里。
+
+
 
 ## `static_cast`
 
