@@ -1,4 +1,4 @@
-# 类型转换运算符
+# 类型转换运算符 简明介绍
 
 > 主要参考资料：C++ Primer Plus 6th Edition
 
@@ -39,7 +39,9 @@ C++更加推荐根据实际情况使用以上四种类型转换而不是使用�
 
 `dynamic_cast`运算符主要用于**向下转化**，也即使从基类类型到子类类型的转化。
 
-> 向上转化时不常用`dynamic_cast`，因为大多数向上转化都是隐式进行的，
+> 向上转化时不常用`dynamic_cast`，因为大多数向上转化都是隐式进行的，完全没有必要使用任何类型转换运算符。
+>
+> 向下转化时也可以使用`static_cast`，但`static_cast`不会进行运行时检查，所以有一定风险。
 
 假设有如下继承结构：
 
@@ -146,6 +148,83 @@ try{
    首先如果没有继承体系那么完全不会出现向上、向下类型转换的需求。其次，因为`dynamic_cast`依托虚函数表进行工作，即使要求是少要有虚函数。若转化类型缺失虚函数表，一般会编译失败，但也存在编译通过发生运行时错误的情况。
 2. 不能混用指针形式语法和引用形式语法。
 3. 转换目标必须是引用或者指针。
+
+
+
+## `const_cast`
+
+### 目的
+
+该类型转换运算符的目的单纯是为了改变变量的`const`性和`volatile`性。
+
+`const_cast`表达式的目的是偶尔我们会有修改一个大部分时间都是`const`变量的需求，在这种情况下，我们可以把这个变量声明为`const`的然后在需要修改的时候使用`const_cast`。当然我们可以使用C语言风格的类型转换，但使用`const_cast`总能在我们头脑发热时为我们检查一下，给出一些错误信息或者警告。
+
+### 语法
+
+`const_cast`的语法如下：
+
+```c++
+const_cast<type-name>(expression)
+```
+
+其中`type-name`和`expression`除了`cv-qualifier`之外必须是同一个类型，如果条件不满足，一般来说编译器会报错。
+
+例如：
+
+```c++
+// 吧下述代码转换一下
+// Low 是 High 的基类
+High bar;
+const High *pBar = &bar;
+// ...
+High *pb = const_cast<High*>(pbar);				// valid
+const Low * pl = const_cast<const Low*> (pBar);	// invalid
+```
+
+第一个转换得到一个可以用来修改`bar`对象的指针`pb`，`const`的限定被移除掉了。第二是转换是非法的，因为它尝试从`const High*`转化到`const Low*`。
+
+### 使用限制
+
+但是`const_cast`对`const`性的移除也不是非常强大，在使用时甚至会有一些未定义行为。`const_cast`允许我们修改一个指针对一个量的可访问性，但修改一个别声明为`const`的量的值是一个未定义行为，例如下述代码。
+
+```c++
+// snippet: 后面再新建
+void change(const int *p, int d){
+    int* pc = const_cast<int*>(pt);
+    *pc += d;
+}
+
+void test(){
+    int valA = 100;
+    const int valB = 100;
+    
+    cout << valA << " " << valB << endl;
+    change(&valA, 20);
+    change(&valB, 20);
+    cout << valA << " " << valB << endl;
+}
+```
+
+再`change`中，因为`const_cast`移除了`pt`的`const`性，所以编译器允许`*pc += n;`语句的存在。但是`valB`被声明为`const`的，编译器可能会保护这个值，防止对他进行任何修改，所以一个可能的输出就是：
+
+```
+100 100
+120 100
+```
+
+这就可能给我们的代码埋下难以察觉的Bug，毕竟一个指针所在代码位置可能和声明变量的位置隔了十万八千里。
+
+## `static_cast`
+
+> 补充 接受其他类型对象对作为参数的构造函数存在时 对这个的影响
+
+
+
+
+
+
+
+
 
 
 
