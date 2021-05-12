@@ -47,7 +47,6 @@ volatile int b;
 
 转换结果满足：
 
-* 如果`new_type`是一个左值引用~~或指向函数的右值引用~~，则结果是左值。
 * 如果`new_type`是对一个对象的右值引用，则结果为消亡值。
 * 其他情况下，结果为纯右值。
 
@@ -74,7 +73,7 @@ struct type{
     type(): i(3){}
     void f(int v) const {
         // this->i = v;		// 编译错误，this是指向常量的指针
-        const_cast<type*>(this)->i = v; // 只要这个方法的对象不是常量的，程序正确；否则为未定义行为
+        const_cast<type*>(this)->i = v; // 可能出现未定义行为
     }
 };
 int main(){
