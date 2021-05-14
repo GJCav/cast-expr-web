@@ -52,5 +52,135 @@ static_cast<new_type>(expression)
    >
    > ​	转化结果同从枚举的底层类型到目标类型的隐式转换结果相同。
 
-8. 
+8. 一个指针或者枚举的值可以被转换为任何完整的枚举类型。
+
+   * 如果底层类型未指定，如果`expression`的值超出了目标类型可以储存的范围，转化结果是未定义的。
+   * 如果底层类型确定，转化过程可以视为先把`expression`枚举的底层类型，然后再转换为枚举类型。
+
+   一个浮点类型的值也可以被转换为任意完成的枚举类型。
+
+   * 转化过程可以视为先把`expression`枚举的底层类型，然后再转换为枚举类型。
+
+9. 一个类D的成员指针可以被向上转换为他的无歧义、可访问基类B的成员指针。此时`static_cast`不会进行运行时检查来保证在运行时指向的成员确实存在。
+
+10. 一个`void*`的纯右值指针可以被转换为任意类型指针。如果原指针的值代表的内存地址不满足目标类型的内存对齐条件，那么转化结果是不确定的。否则，如果原指针指向对象a，且存在一个和a是指针可互换的(pointer-interconvertible)目标类型的对象b，转化结果是指向b的指正。否则，指针的值不会被改变。所有将一个指针转化为`void*`类型再转化为原类型的转换会保留指针原有的值。
+
+对于所有的上述转换，转换结果满足：
+
+* 如果`new_type`是代表函数的左值引用或右值引用类型，则结果是左值。
+* 如果`new_type`是对象的右值引用，则结果是消亡值。
+* 其他情况下，结果是纯右值。
+
+如果满足下述条件，则两个对象a、b是指针可互换的：
+
+* 他们是同一个对象；或者
+* 一个是联合体类型（union）且另一个是那个对象的非静态数据成员；或
+* 一个是标准结构类型(standard-layout class)对象，另一个是那个对象的第一个非静态数据成员，或如果该对象不具有非静态数据成员、任何基类类型的子对象；或
+* 存在一个对象c是的a和c是指针可互换的且c和b是指针可互换的
+
+例如：
+
+```c++
+union U {int a; double b;} u;
+void* x = &u;						 // x 是 “指向u的指针”
+double* y = static_cast<double*>(x); // y 是 “指向u.b的指针”
+char* z = static_cast<char*>(x);	 // z 是 “指向u”的指针
+```
+
+
+
+注：
+
+`static_cast`也可以通过执行一个函数到指针的转换来消除函数重载的模糊性，例如：
+
+```c++
+std::for_each(files.begin(), files.end(),
+             static_cast<std::ostream&(*)(std::ostream&)>(std::flush));
+```
+
+
+
+##  例
+
+```c++
+#include <vector>
+#include <iostream>
+ 
+struct B {
+    int m = 0;
+    void hello() const {
+        std::cout << "Hello world, this is B!\n";
+    }
+};
+struct D : B {
+    void hello() const {
+        std::cout << "Hello world, this is D!\n";
+    }
+};
+ 
+enum class E { ONE = 1, TWO, THREE };
+enum EU { ONE = 1, TWO, THREE };
+ 
+int main()
+{
+    // 1: 通过初始化进行转换
+    int n = static_cast<int>(3.14); 
+    std::cout << "n = " << n << '\n';
+    std::vector<int> v = static_cast<std::vector<int>>(10);
+    std::cout << "v.size() = " << v.size() << '\n';
+ 
+    // 2: 静态向下转换
+    D d;
+    B& br = d; // 隐式向上转换
+    br.hello();
+    D& another_d = static_cast<D&>(br); // 向下转换
+    another_d.hello();
+ 
+    // 3: 左值转化为右值
+    std::vector<int> v2 = static_cast<std::vector<int>&&>(v);
+    std::cout << "after move, v.size() = " << v.size() << '\n';
+ 
+    // 4: 抛弃表达式的值
+    static_cast<void>(v2.size());
+ 
+    // 5. 隐式转换逆转换
+    void* nv = &n;
+    int* ni = static_cast<int*>(nv);
+    std::cout << "*ni = " << *ni << '\n';
+ 
+    // 6. 先执行数组到指针，紧跟着向上转换
+    D a[10];
+    B* dp = static_cast<B*>(a);
+ 
+    // 7. 限域枚举转换为int或float
+    E e = E::ONE;
+    int one = static_cast<int>(e);
+    std::cout << one << '\n';
+ 
+    // 8. int到枚举，枚举到枚举
+    E e2 = static_cast<E>(one);
+    EU eu = static_cast<EU>(e2);
+ 
+    // 9. 对成员指针进行向上转换
+    int D::*pm = &D::m;
+    std::cout << br.*static_cast<int B::*>(pm) << '\n';
+ 
+    // 10. void* 指针到任意类型指针转换
+    void* voidp = &e;
+    std::vector<int>* p = static_cast<std::vector<int>*>(voidp);
+}
+```
+
+Output：
+
+```
+n = 3
+v.size() = 10
+Hello world, this is B!
+Hello world, this is D!
+after move, v.size() = 0
+*ni = 3
+1
+0
+```
 
