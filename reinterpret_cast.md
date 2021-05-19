@@ -2,8 +2,6 @@
 
 `reinterpret_cast`仅仅是对二进制位的重新解释，不会对数据进行调整，风险较高。
 
-
-
 > Ref: [cpp reference reinterpret_cast](https://en.cppreference.com/w/cpp/language/reinterpret_cast)
 
 ## 语法
@@ -92,6 +90,155 @@
 * 都是相同大小的数组或二者中至少有一个是未知边界的数组，且元素类型相似。
 
 例如：
+
+* `const int * volatile * `和`int * * const`是相似的
+* `const int (* volatile S::* const)[20]` 和`int (* const S::* volatile)[20]` 是相似的
+* `int (* const *)(int *)` 和`int (* volatile *)(int *)`是相似的
+* `int (S::*)() const` 和`int (S::*)()` 不相似。
+* `int (*)(int *)` 和`int (*)(const int *)` 不相似;
+* `const int (*)(int *)` 和`int (*)(int *)` 不相似;
+* `int (*)(int * const)` 和`int (*)(int *)`  相似;
+* `std::pair<int, int>` 和`std::pair<const int, int>` 不相似；
+
+这个规则支持了类型别名分析，这里编译器假设通过一个类型的泛左值读取数据不会因通过另一种类型的泛左值写入数据遭到修改。
+
+注1：许多C++编译器会引入非标准语言拓展来放松上述规则，使通过共同体的不活动成员访问错误的类型。
+
+注2：标准中上述规则还包括从C继承而来的两点额外规则，但下述情况可能在C++中出现，所以被忽略掉了。
+
+1. `AliasedType`是一个聚合体类型([aggregate type](https://en.cppreference.com/w/cpp/language/aggregate_initialization))或是共同体类型，且该类型包含上述提到类型之一作为一个元素或非静态成员（递归地包括子聚合体和包含共同体的非静态数据成员）
+2. `AliasedType`是`DynamicType`的基类。
+
+
+
+## 代码示例
+
+### 基本使用
+
+```c++
+#include <cstdint>
+#include <cassert>
+#include <iostream>
+int f() { return 42; }
+int main()
+{
+    int i = 7;
+ 
+    // 指针与整型间相互转换
+    std::uintptr_t v1 = reinterpret_cast<std::uintptr_t>(&i); // 使用 static_cast 将导致编译错误
+    std::cout << "The value of &i is 0x" << std::hex << v1 << '\n';
+    int* p1 = reinterpret_cast<int*>(v1);
+    assert(p1 == &i);
+ 
+    // 函数指针间的转换
+    void(*fp1)() = reinterpret_cast<void(*)()>(f);
+    // fp1(); undefined behavior
+    int(*fp2)() = reinterpret_cast<int(*)()>(fp1);
+    std::cout << std::dec << fp2() << '\n'; // 这个调用是安全的
+ 
+    // 通过指针的类型别名
+    char* p2 = reinterpret_cast<char*>(&i);
+    if(p2[0] == '\x7')
+        std::cout << "This system is little-endian\n";
+    else
+        std::cout << "This system is big-endian\n";
+ 
+    // 通过引用的类型别名
+    reinterpret_cast<unsigned int&>(i) = 42;
+    std::cout << i << '\n';
+ 
+    const int &const_iref = i;
+    //int &iref = reinterpret_cast<int&>(const_iref); //编译错误 - 无法去除const
+    //此时必须使用const_cast:  int &iref = const_cast<int&>(const_iref);
+}
+```
+
+一种可能的输出：
+
+```c++
+The value of &i is 0x7fff352c3580
+42
+This system is little-endian
+42
+```
+
+
+
+
+
+### 指针可交换
+
+假设满足内存对齐要求，`reinterpret_cast`不会改变指针的值，除了一些指针可互换的情况：
+
+```c++
+struct S1 { int a; } s1;
+struct S2 { int a; private: int b; } s2; // S2 不是标准布局类型
+union U { int a; double b; } u = {0};
+int arr[2];
+ 
+int* p1 = reinterpret_cast<int*>(&s1); // p1 的值是 "指向s1.a的指针的值"因为 s1.a 和 s1 是指针可互换的
+ 
+int* p2 = reinterpret_cast<int*>(&s2); // p2 的值不会改变，就是“指向s2的指针的值”
+ 
+int* p3 = reinterpret_cast<int*>(&u);  // p3 的值是 “指向u.a的指针的值”。u.a 和 u 是指针可互换的。
+ 
+double* p4 = reinterpret_cast<double*>(p3); // p4 的值是 “指向u.b” 的值。u.a 和 u.b 也是指针可互换的，
+											//因为他们与 u 是指针可互换的。
+ 
+int* p5 = reinterpret_cast<int*>(&arr); // p5 值保持不变，就是“指向arr的指针”
+```
+
+
+
+### 未定义行为情况
+
+对一个泛左值访问一个类型的非静态成员数据或非静态成员函数，但这个泛左值恰好不是这个类型时，将导致未定义行为：
+
+```c++
+struct S { int x; };
+struct T { int x; int f(); };
+struct S1 : S {}; 		// 标准布局
+struct ST : S, T {}; 	// 非标准布局
+ 
+S s = {};
+auto p = reinterpret_cast<T*>(&s); // p 是 "指向s的指针"
+auto i = p->x; 	// 未定义行为：s 不是一个 T 类型对象
+p->x = 1; 		// 未定义行为
+p->f();   		// 同上
+ 
+S1 s1 = {};
+auto p1 = reinterpret_cast<S*>(&s1); // p1 是 "指向 s1 的 S类型子对象的指针"
+auto i = p1->x; // 程序正确
+p1->x = 1; // 正确
+ 
+ST st = {};
+auto p2 = reinterpret_cast<S*>(&st); // p2 是 "指向 st 的指针"
+auto i = p2->x; // 未定义行为
+p2->x = 1; // 未定义行为
+```
+
+即使理论上说这些代码违背了前文提到的严格别名规则，许多编译器只会对这些情况报出“strict aliasing”的警告；有些编译器甚至不会有任何警告，例如：clang编译器。
+
+严格别名规则以及相关规则的目的是启用基于类型的别名分析(type-based alias analysis)，但当一个程序使两个毫无关联的类型的指针(如`float*`和`double*`)同时用于访问同一块内存时该机制极易被破坏。所以，任何有可能造成上述情况的技术比然造成未定义行为。
+
+
+
+### 与`std::memcpy`、<span style="border: lightgrey solid 1px">`std::bit_cast`<span style="color: green; font-size: 0.5em">(since C++ 20)</span></span>结合
+
+但需要把一个对象的字节解释为另一个类型时，可以考虑使用`std::memcpy`、<span style="border: lightgrey solid 1px">`std::bit_cast`<span style="color: green; font-size: 0.8em">(since C++ 20)</span></span>。
+
+```c++
+double d = 0.1;
+std::int64_t n;
+static_assert(sizeof n == sizeof d);
+// n = *reinterpret_cast<std::int64_t*>(&d); // 未定义行为
+std::memcpy(&n, &d, sizeof d); // OK
+n = std::bit_cast<std::int64_t>(d); // also OK
+```
+
+
+
+
 
 
 
