@@ -22,7 +22,7 @@ static_cast<new_type>(expression)
 
 只有下述转换在不涉及cv修饰符更改时可以使用`static_cast`完成：
 
-1. 如果存在从`expression`到`new_type`的一些列隐式转换，或者`new_type`至少重载一个函数能直接从`expression`的值或引用初始化这个`new_type`类型，那么`static_cast<new_type>`返回一个假想的如同使用`new_type Temp(expression);`构造的`Temp`对象。这可能会涉及到隐式类型转换，`new_type`的构造函数或是用户自定义类型转换运算符。对于非引用类型的`new_type`，对纯右值`expression`类型的转化对象即是直接初始化的对象。
+1. 如果存在从`expression`到`new_type`的一些列隐式转换，或者`new_type`至少重载一个函数能直接从`expression`的值或引用初始化这个`new_type`类型，那么`static_cast<new_type>`返回一个假想的如同使用`new_type Temp(expression)`构造的`Temp`对象。这可能会涉及到隐式类型转换，`new_type`的构造函数或是用户自定义类型转换运算符。对于非引用类型的`new_type`，对纯右值`expression`类型的转化对象即是直接初始化的对象。
 
 2. 如果`new_type`是某个D类型的引用或者指针，且`expression`是它的非虚基类B或是指向它的纯右值指针，`static_cast`会执行一个向下转换（当B有歧义的、不可访问、D的虚基类、D的虚基类的基类时，这个向下转化是非规范的）。这种向下转换不会进行运行时检查来确保这个对象的类型确实是D，所以此时的向下转换只能安全地用于上述条件能被其他方法保证时，例如静态多态性。安全的向下转换可以使用`dynamic_cast`。
 

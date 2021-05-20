@@ -220,13 +220,50 @@ MSVC、g++、clang编译运行结果：
 
 ## `static_cast`
 
+### 目的
+
+用来进行编译器可以进行的隐式转换。
+
+
+
 ### 语法
 
 ```c++
 static_cast<type-name>(expression);
 ```
 
-上述转换只有在`expression`
+上述转换只有在从`expression`到`type-name`存在一系列的隐式转换、或存在反方向的一系列隐式转换、或有用户自定义转换存在时，这个语句才是合法的。假设`High`是`Low`的基类，`Pond`是与两者无关的类，那么从`High`到`Low`或反方向转换时可行的，但不允许从`Low`到`Pond`的转换。
+
+注：上述转换不太准确，准确的定义见[ISO static_cast](./ISO static_cast.md)
+
+```c++
+High bar;
+Low blow;
+High * pb = static_cast<High *>(&blow);		// 正确：向上转型
+Low * p1 = static_cast<Low *>(&bar);		// 正确：向下转型
+Pond * pmer = static_cast<Pond *>(&blow);	// 编译错误
+```
+
+第一个转换是向上转型，可以隐式进行，所以是合法的。第二个转换是向下转换，必须显示转换，但因为其逆向的转换是合法的，所以也能使用`static_cast`。
+
+相似的，因为一个枚举类型的值可以被隐式地转换为整形，所以一个整形可以使用`static_cast`转换未枚举类型。同样的，也能使用`static_cast`进行一些列数值类型的转换，例如：`double`到`int`、`float`到`long`等。
+
+### 使用限制
+
+1. 不能修改常量性
+2. 向下转换时不会进行类型检查，可能造成运行时错误
+3. ... 见[ISO static_cast](ISO static_cast.md)
+
+
+
+## `reinterpret_cast`
+
+
+
+
+
+
+
 
 
 
