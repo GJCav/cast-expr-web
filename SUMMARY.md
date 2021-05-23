@@ -1,5 +1,5 @@
 # Table of contents
-* [Initial page](README.md)
+* [类型转换符报告](README.md)
 
 ## 简要说明
 * [简要说明](./brief-intro.md)
