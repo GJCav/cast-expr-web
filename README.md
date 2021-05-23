@@ -1,14 +1,8 @@
 # C++ 类型转换运算符 研究报告
 
-> Author: 顾家铭
+> Author: JCav
 >
-> Id: 2020013059
->
-> E-mails: gjm20@mails.tsinghua.edu.cn
->
-> Phone: 18810623126
-
-
+> E-mail: micojcav@qq.com
 
 ## 摘要
 
