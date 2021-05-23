@@ -258,10 +258,39 @@ Pond * pmer = static_cast<Pond *>(&blow);	// 编译错误
 
 ## `reinterpret_cast`
 
+### 目的
+
+`reinterpret_cast`将会进行一些具有极大风险性的类型转换。虽然这个运算符不能去除常量性，但它允许一些极其怪异的转换。有时一个程序需要做一些依赖于实现的事情，此时使用`reinterpret_cast`可以简化这种操作。
 
 
 
+### 语法
 
+```c++
+reinterpret_cast<type-name>(expression);
+```
+
+`reinterpret_cast`进行转换时仅仅是**对数据二进制位的重新解释**，一般借助转换规则来调增对象。
+
+使用示例：
+
+```c++
+struct dat {short a; short b;};
+
+long value = 0xA224B118;
+dat *pd = reinterpret_cast<dat*>(&value);
+cout << hex << pd->a; // 输出 value 的前两个字节的数据
+```
+
+一般来说，`reinterpret_cast`会用于底层的、实现依赖的以及不可迁移的程序。就连上述的例子在小端机和大端机上的行为都不同。
+
+
+
+### 使用限制
+
+1. 把一个指针转换为一个整型时，这个整型需要足够大，保证能储存指针的值。
+2. 不能把指针转换为浮点类型。
+3. 不能把函数指针转换为普通的指向数据类型的指针。
 
 
 
