@@ -389,6 +389,8 @@ reinterpret_cast<type-name>(expression);
 使用示例：
 
 ```c++
+//snippet: brief-intro-rpt-1.cpp
+
 struct dat {short a; short b;};
 
 long value = 0xA224B118;
@@ -405,8 +407,31 @@ cout << hex << pd->a; // 输出 value 的前两个字节的数据
 ### 使用限制
 
 1. 把一个指针转换为一个整型时，这个整型需要足够大，保证能储存指针的值。
+
 2. 不能把指针转换为浮点类型。
+
 3. 不能把函数指针转换为普通的指向数据类型的指针。
+
+4. 不要尝试在继承体系中使用`reinterpret_cast`，例如：
+
+   ```c++
+   //snippet: brief-intro-rpt-2.cpp
+   
+   struct A {int a;};
+   struct B {int b;};
+   struct C : A, B {};
+   
+   ...
+   cout << &c << " " << static_cast<B*>(&c) << " " << reinterpret_cast<B*>(&c) << endl;
+   ```
+
+   某次运行结果：
+
+   ```
+   0097FC20 0097FC24 0097FC20
+   ```
+
+   向上转换时`static_cast`正确地偏移了指正，但是`reinterpret_cast`没有。注：这里也不能使用`dynamic_cast`因为没有虚函数表。
 
 
 
