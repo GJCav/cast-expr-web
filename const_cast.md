@@ -28,7 +28,7 @@ volatile int b;
 
 **多级指针**：在本文中为指向指针的指针或者更深的指针结构，例如`int *****b;`是一个5级指针。
 
-**左值、右值、纯右值、泛左值、消亡值**：参见\\\\TODO: 对各种值的解释。
+**左值、右值、纯右值、泛左值、消亡值**：参见[微软文档的解释](https://docs.microsoft.com/en-us/cpp/cpp/lvalues-and-rvalues-visual-cpp?view=msvc-160)
 
 
 

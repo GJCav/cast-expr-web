@@ -155,6 +155,14 @@ try{
 
 
 
+### 参考
+
+1. [详细说明](dynamic_cast.md)
+2. [标准定义](ISO dynamic_cast.md)
+3. [摘要页](README.md)
+
+
+
 ## `const_cast`
 
 ### 目的
@@ -230,6 +238,14 @@ void run2() {
 这下代码就迷惑起来了，`valB`荣获矛盾文学奖，它变了，但又没变。这样的输出是因为编译器会吧`const`的在编译器就翻译为了它的值，也就是说`valB`在编译时就变成了`100`，所以运行时修改了他的值输出也不会体现出来。但以上解释都是瞎说，在ISO C++定义中明确表示这样的代码导致未定义行为，虽然主流编译器下通过指针访问都得到了我们期待的值，但最好不要出现这样的代码。
 
 > 注：这个例子来自C++ Primer Plus，但书中的解释有些小问题，编译器并没有保护const int的值不被改变，通过指针访问可以说明这一问题。
+
+
+
+### 参考
+
+1. [详细说明](const_cast.md)
+2. [标准定义](ISO const_cast.md)
+3. [摘要页](README.md)
 
 
 
@@ -346,7 +362,11 @@ Pond * pmer = static_cast<Pond *>(&blow);	// 编译错误
 
 
 
+### 参考
 
+1. [详细说明](static_cast.md)
+2. [标准定义](ISO static_cast.md)
+3. [摘要页](README.md)
 
 
 
@@ -390,7 +410,11 @@ cout << hex << pd->a; // 输出 value 的前两个字节的数据
 
 
 
+### 参考
 
+1. [详细说明](reinterpret_cast.md)
+2. [标准定义](ISO reinterpret_cast.md)
+3. [摘要页](README.md)
 
 
 
