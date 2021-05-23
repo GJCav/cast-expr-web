@@ -51,9 +51,10 @@ Type *pm = dynamic_cast<Type*>(pt);
 
 **注：**只有在拥有**虚函数**继承体系中才能使用`dynamic_cast`，因为`dynamic_cast`依赖**虚函数表**工作。
 
-例如下述代码会报错：`E0698：运行时 dynamic_cast 的操作数必须包含多态类型`
+例如下述代码会报错(msvc编译)：`E0698：运行时 dynamic_cast 的操作数必须包含多态类型`
 
 ```c++
+//snippet: dyn-cast-ex1.cpp
 class Base {};
 class Sub : public Base {};
 
@@ -65,6 +66,8 @@ Sub* pCast = dynamic_cast<Sub*>(pSub); // E0698
 *在拥有虚函数的继承体系*，更进一步，指的是`dynamic_cast`的目标、源都需要具有**虚函数表**，否侧`dynamic_cast`不会正常工作。例如：
 
 ```c++
+//snippet: dyn-cast-ex2.cpp
+
 class Base {
 public:
 	virtual void fun() {}
@@ -80,6 +83,8 @@ Base* pD = dynamic_cast<Base*>(pB); // E0698
 但上述代码第6行若改为
 
 ```c++
+//snippet: dyn-cast-ex3.cpp
+
 class BadGuy {
 public:
     virtual void bad(){}
@@ -95,6 +100,7 @@ public:
 但如果将`reinterpret_cast`也牵扯进来，事情就复杂起来了，见如下代码：
 
 ```c++
+//snippet: dyn-cast-ex4.cpp
 class Base {
 public:
 	virtual void fun() {}

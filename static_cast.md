@@ -44,14 +44,12 @@ static_cast<new_type>(expression)
 
 7. 限域枚举类型可以被转换为整型或浮点型。
 
-   > 到C++ 20为止：
-   >
-   > ​	当目标类型为`bool`，`expression`值为0时转化结果为`false`，为其他值时结果为`true`。对于其他的整型类型，如果它能被目标类型表示，则转换结果是枚举的值，否则是未指明的。
-   >
-   > 从C++ 20开始：
-   >
-   > ​	转化结果同从枚举的底层类型到目标类型的隐式转换结果相同。
-
+    <div style="display: flex; border: solid lightgrey 0.5px; align-items: center;"><span style="flex-grow: 1;">当目标类型为`bool`，`expression`值为0时转化结果为`false`，为其他值时结果为`true`。对于其他的整型类型，如果它能被目标类型表示，则转换结果是枚举的值，否则是未指明的。</span><span style="flex-shrink: 1;width: 12em; color:green; font-size: 0.8em; text-align: center">(C++20 之前)</span></div>
+   
+   <div style="display: flex; border: solid lightgrey 0.5px; align-items: center;"><span style="flex-grow: 1;">转化结果同从枚举的底层类型到目标类型的隐式转换结果相同。</span>
+   <span style="flex-shrink: 1;width: 10em; color:green; font-size: 0.8em; text-align: center">(C++20 开始)</span>
+   </div>
+   
 8. 一个指针或者枚举的值可以被转换为任何完整的枚举类型。
 
    * 如果底层类型未指定，如果`expression`的值超出了目标类型可以储存的范围，转化结果是未定义的。

@@ -116,6 +116,8 @@
 ### 基本使用
 
 ```c++
+//snippet: rpt-cast-ex1.cpp
+
 #include <cstdint>
 #include <cassert>
 #include <iostream>

@@ -364,7 +364,7 @@ Pond * pmer = static_cast<Pond *>(&blow);	// 编译错误
 reinterpret_cast<type-name>(expression);
 ```
 
-`reinterpret_cast`进行转换时仅仅是**对数据二进制位的重新解释**，一般借助转换规则来调增对象。
+`reinterpret_cast`进行转换时仅仅是**对数据二进制位的重新解释**，一般不会借助转换规则来调整对象。
 
 使用示例：
 
