@@ -20,11 +20,13 @@ void change(const int* p, int d) {
 void run2() {
     int valA = 100;
     const int valB = 100;
+    int *pB = const_cast<int *>(&valB);
 
     cout << valA << " " << valB << endl;
     change(&valA, 20);
     change(&valB, 20);
     cout << valA << " " << valB << endl;
+    cout << "*pB = " << *pB << endl;
 }
 
 int main() {
