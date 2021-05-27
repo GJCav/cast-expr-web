@@ -44,7 +44,7 @@ static_cast<new_type>(expression)
 
 7. 限域枚举类型可以被转换为整型或浮点型。
 
-    <div style="display: flex; border: solid lightgrey 0.5px; align-items: center;"><span style="flex-grow: 1;">当目标类型为`bool`，`expression`值为0时转化结果为`false`，为其他值时结果为`true`。对于其他的整型类型，如果它能被目标类型表示，则转换结果是枚举的值，否则是未指明的。</span><span style="flex-shrink: 1;width: 12em; color:green; font-size: 0.8em; text-align: center">(C++20 之前)</span></div>
+    <div style="display: flex; border: solid lightgrey 0.5px; align-items: center;"><span style="flex-grow: 1;">当目标类型为<code>bool</code>，<code>expression</code>值为0时转化结果为<code>false</code>，为其他值时结果为<code>true</code>。对于其他的整型类型，如果它能被目标类型表示，则转换结果是枚举的值，否则是未指明的。</span><span style="flex-shrink: 1;width: 12em; color:green; font-size: 0.8em; text-align: center">(C++20 之前)</span></div>
    
    <div style="display: flex; border: solid lightgrey 0.5px; align-items: center;"><span style="flex-grow: 1;">转化结果同从枚举的底层类型到目标类型的隐式转换结果相同。</span>
    <span style="flex-shrink: 1;width: 10em; color:green; font-size: 0.8em; text-align: center">(C++20 开始)</span>
@@ -61,7 +61,7 @@ static_cast<new_type>(expression)
 
 9. 一个类D的成员指针可以被向上转换为他的无歧义、可访问基类B的成员指针。此时`static_cast`不会进行运行时检查来保证在运行时指向的成员确实存在。
 
-10. 一个`void*`的纯右值指针可以被转换为任意类型指针。如果原指针的值代表的内存地址不满足目标类型的内存对齐条件，那么转化结果是不确定的。否则，如果原指针指向对象a，且存在一个和a是指针可互换的(pointer-interconvertible)目标类型的对象b，转化结果是指向b的指正。否则，指针的值不会被改变。所有将一个指针转化为`void*`类型再转化为原类型的转换会保留指针原有的值。
+10. 一个`void*`的纯右值指针可以被转换为任意类型指针。如果原指针的值代表的内存地址不满足目标类型的内存对齐条件，那么转化结果是不确定的。否则，如果原指针指向对象a，且存在一个和a是指针可互换的(pointer-interconvertible)目标类型的对象b，转化结果是指向b的指针。否则，指针的值不会被改变。所有将一个指针转化为`void*`类型再转化为原类型的转换会保留指针原有的值。
 
 对于所有的上述转换，转换结果满足：
 
