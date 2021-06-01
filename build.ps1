@@ -1,2 +1,2 @@
 gitbook build
-cp -r .\_book\  .\docs\
+cp -r -Force .\_book\  .\docs\
