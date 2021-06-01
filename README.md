@@ -2,7 +2,7 @@
 
 > Author: JCav
 >
-> E-mail: micojcav@qq.com
+> E-mail: micojcav@outlook.com
 
 
 
