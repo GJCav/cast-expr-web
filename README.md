@@ -35,10 +35,10 @@ cast-expr/
 - [const_cast.md](./const_cast.md)
 - [static_cast.md](./static_cast.md)
 - [reinterpret_cast.md](reinterpret_cast.md)
-- [ISO dynamic_cast.md](ISO dynamic_cast.md)：C++标准中的定义，下同
-- [ISO const_cast.md](./ISO const_cast.md)
-- [ISO static_cast.md](ISO static_cast.md)
-- [ISO reinterpret_cast.md](ISO reinterpret_cast.md)
+- [ISO dynamic_cast.md](ISO_dynamic_cast.md)：C++标准中的定义，下同
+- [ISO const_cast.md](./ISO_const_cast.md)
+- [ISO static_cast.md](ISO_static_cast.md)
+- [ISO reinterpret_cast.md](ISO_reinterpret_cast.md)
 
 
 

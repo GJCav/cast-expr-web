@@ -41,11 +41,11 @@
 
 7. 如果`T1`和`T2`不同，`T1`的cv分解(cv-decomposition, 7.5 Qualification conversions)导出 n 使得`T2`具有形如：
 
-   ​		$cv_0^2\ \ P_0^2\ \ cv_1^2\ \ P_1^2\ \cdots\ cv_{n-1}^2\ \ P_{n-1}^2\ \ cv_n^2\ \ U_2$
+   ​		$$cv_0^2\ \ P_0^2\ \ cv_1^2\ \ P_1^2\ \cdots\ cv_{n-1}^2\ \ P_{n-1}^2\ \ cv_n^2\ \ U_2$$
 
    的cv分解，且不具备能将`T1`转换为
 
-   ​		$cv_0^2\ \ P_0^1\ \ cv_1^2\ \ P_1^1\ \cdots\ cv_{n-1}^2\ \ P_{n-1}^1\ \ cv_n^2\ \ U_1$
+   ​		$$cv_0^2\ \ P_0^1\ \ cv_1^2\ \ P_1^1\ \cdots\ cv_{n-1}^2\ \ P_{n-1}^1\ \ cv_n^2\ \ U_1$$
 
    的限定符转换，使用`const_cast`将`T1`转换为`T2`会去除常量性。
 

@@ -270,7 +270,7 @@ static_cast<type-name>(expression);
 
 上述转换只有在从`expression`到`type-name`存在一系列的隐式转换、或存在反方向的一系列隐式转换、或有用户自定义转换存在时，这个语句才是合法的。假设`High`是`Low`的基类，`Pond`是与两者无关的类，那么从`High`到`Low`或反方向转换时可行的，但不允许从`Low`到`Pond`的转换。
 
-注：上述描述其实也不太准确，准确的定义见[ISO static_cast](./ISO static_cast.md)
+注：上述描述其实也不太准确，准确的定义见[ISO static_cast](./ISO_static_cast.md)
 
 ```c++
 //snippet: brief-intro-static-1.cpp
@@ -359,14 +359,14 @@ Pond * pmer = static_cast<Pond *>(&blow);	// 编译错误
    
    ```
 
-3. ... 见[ISO static_cast](ISO static_cast.md)
+3. ... 见[ISO_static_cast](ISO_static_cast.md)
 
 
 
 ### 参考
 
 1. [详细说明](static_cast.md)
-2. [标准定义](ISO static_cast.md)
+2. [标准定义](ISO_static_cast.md)
 3. [摘要页](README.md)
 
 

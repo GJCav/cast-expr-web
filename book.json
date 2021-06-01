@@ -1,0 +1,35 @@
+{
+    "title": "C++ 类型转换运算符 研究报告",
+    "author": "JCav",
+    "description": "",
+    "language": "zh-hans",
+    "gitbook": ">=3.2.3",
+    "root": "./",
+    "styles": {
+        "website": "styles/github-customed.css",
+        "pdf": "styles/github-customed.css"
+    },
+    "plugins": [
+        "-livereload",
+        "-lunr",
+        "-search",
+        "search-plus",
+        "-sharing",
+        "-highlight",
+        "code",
+        "prism",
+        "prism-themes",
+        "katex",
+        "splitter"
+    ],
+    "pluginsConfig": {
+        "prism": {
+            "css": [
+                "prism-themes/themes/prism-vsc-dark-plus.css"
+            ],
+            "lang": {
+                "c++": "cpp"
+            }
+        }
+    }
+}
