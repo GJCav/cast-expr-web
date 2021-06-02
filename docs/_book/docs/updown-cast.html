@@ -1,0 +1,452 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>向上、向下转换 · C++ 类型转换运算符 研究报告</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="JCav">
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search-plus/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-prism/prism-vsc-dark-plus.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-katex/katex.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-tbfed-pagefooter/footer.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+        <link rel="stylesheet" href="styles/github-customed.css">
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="static-poly.html" />
+    
+    
+    <link rel="prev" href="ISO_reinterpret_cast.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    类型转换符报告
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">简要说明</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="brief-intro.html">
+            
+                <a href="brief-intro.html">
+            
+                    
+                    简要说明
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">详细说明</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="dynamic_cast.html">
+            
+                <a href="dynamic_cast.html">
+            
+                    
+                    dynamic_cast.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="const_cast.html">
+            
+                <a href="const_cast.html">
+            
+                    
+                    const_cast.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="static_cast.html">
+            
+                <a href="static_cast.html">
+            
+                    
+                    static_cast.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="reinterpret_cast.html">
+            
+                <a href="reinterpret_cast.html">
+            
+                    
+                    reinterpret_cast.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">ISO C++ 标准定义</li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="ISO_dynamic_cast.html">
+            
+                <a href="ISO_dynamic_cast.html">
+            
+                    
+                    ISO dynamic_cast.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="ISO_const_cast.html">
+            
+                <a href="ISO_const_cast.html">
+            
+                    
+                    ISO const_cast.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="ISO_static_cast.html">
+            
+                <a href="ISO_static_cast.html">
+            
+                    
+                    ISO static_cast.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4" data-path="ISO_reinterpret_cast.html">
+            
+                <a href="ISO_reinterpret_cast.html">
+            
+                    
+                    ISO reinterpret_cast.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">运用实例</li>
+        
+        
+    
+        <li class="chapter active" data-level="5.1" data-path="updown-cast.html">
+            
+                <a href="updown-cast.html">
+            
+                    
+                    向上、向下转换
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="static-poly.html">
+            
+                <a href="static-poly.html">
+            
+                    
+                    静态多态性
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >向上、向下转换</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div class="search-plus" id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="&#x5C34;&#x5C2C;&#x7684;&#x5411;&#x4E0B;&#x8F6C;&#x6362;">&#x5C34;&#x5C2C;&#x7684;&#x5411;&#x4E0B;&#x8F6C;&#x6362;</h1>
+<blockquote>
+<p>&#x7EA6;&#x5B9A;&#xFF1A;</p>
+<ul>
+<li>&#x5411;&#x4E0A;&#x8F6C;&#x6362;&#xFF1A;&#x5411;&#x57FA;&#x7C7B;&#x8F6C;&#x6362;</li>
+<li>&#x5411;&#x4E0B;&#x8F6C;&#x6362;&#xFF1A;&#x5411;&#x5B50;&#x7C7B;&#x8F6C;&#x6362;</li>
+</ul>
+</blockquote>
+<h2 id="&#x5F15;&#x8A00;">&#x5F15;&#x8A00;</h2>
+<p>&#x5728;&#x4E00;&#x4E2A;&#x7EE7;&#x627F;&#x4F53;&#x7CFB;&#x4E2D;&#xFF0C;&#x6700;&#x5E38;&#x505A;&#x7684;&#x4E00;&#x4EF6;&#x4E8B;&#x5C31;&#x662F;&#x628A;&#x5B50;&#x7C7B;&#x7684;&#x5BF9;&#x8C61;&#x4ED8;&#x7ED9;&#x57FA;&#x7C7B;&#x7C7B;&#x578B;&#x7684;&#x53D8;&#x91CF;&#xFF0C;&#x901A;&#x8FC7;&#x591A;&#x6001;&#x6027;&#x6765;&#x5B9E;&#x73B0;&#x7A0B;&#x5E8F;&#x7684;&#x529F;&#x80FD;&#x3002;&#x8FD9;&#x4E00;&#x6B65;&#x6CA1;&#x6709;&#x4EC0;&#x4E48;&#x597D;&#x8BF4;&#x7684;&#xFF0C;&#x76F4;&#x63A5;&#x8D4B;&#x503C;&#x5C31;&#x5B8C;&#x4E8B;&#x4E86;&#x3002;&#x4F46;&#x4E5F;&#x6709;&#x8FEB;&#x4E0D;&#x5F97;&#x5DF2;&#x7684;&#x5C34;&#x5C2C;&#x60C5;&#x51B5;&#xFF1A;&#x5FC5;&#x987B;&#x628A;&#x4E00;&#x4E2A;&#x7236;&#x7C7B;&#x7C7B;&#x578B;&#x7684;&#x53D8;&#x91CF;&#x8F6C;&#x6362;&#x56DE;&#x5B50;&#x7C7B;&#x7C7B;&#x578B;&#xFF0C;&#x8FD9;&#x6837;&#x7684;&#x5411;&#x4E0B;&#x8F6C;&#x6362;&#x53EF;&#x80FD;&#x662F;&#x5371;&#x9669;&#x7684;&#xFF0C;&#x6BD5;&#x7ADF;&#x6211;&#x4EEC;&#x4E0D;&#x77E5;&#x9053;&#x53D8;&#x91CF;&#x6307;&#x5411;&#x7684;&#x5BF9;&#x8C61;&#x662F;&#x4E0D;&#x662F;&#x771F;&#x7684;&#x662F;&#x76EE;&#x6807;&#x7C7B;&#x578B;&#x3002;&#x6B64;&#x65F6;&#x6211;&#x4EEC;&#x9762;&#x524D;&#x7684;&#x6709;&#x4E24;&#x79CD;&#x8F6C;&#x6362;&#x8FD0;&#x7B97;&#x7B26;&#x53EF;&#x4EE5;&#x9009;&#x62E9;&#xFF1A;</p>
+<ul>
+<li><code>static_cast</code></li>
+<li><code>dynamic_cast</code></li>
+</ul>
+<p>&#x4E8C;&#x8005;&#x7684;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x53C2;&#x7167;&#x7B80;&#x8981;&#x8BF4;&#x660E;&#x3001;&#x8BE6;&#x7EC6;&#x8BF4;&#x660E;&#x548C;&#x5B9A;&#x4E49;&#x90E8;&#x5206;&#xFF0C;&#x8FD9;&#x91CC;&#x4EC5;&#x505A;&#x5982;&#x4E0B;&#x5F52;&#x7EB3;&#xFF1A;</p>
+<ol>
+<li>&#x82E5;&#x80FD;&#x4E0D;&#x4F7F;&#x7528;&#x5411;&#x4E0B;&#x8F6C;&#x5316;&#xFF0C;&#x5C31;&#x4E0D;&#x4F7F;&#x7528;&#x5411;&#x4E0B;&#x8F6C;&#x5316;&#x3002;</li>
+<li>&#x82E5;&#x4F53;&#x7CFB;&#x4E2D;&#x65E0;&#x865A;&#x51FD;&#x6570;&#x8868;&#xFF0C;&#x53EA;&#x80FD;&#x9009;&#x62E9;<code>static_cast</code>&#x3002;</li>
+<li>&#x82E5;&#x7EE7;&#x627F;&#x4F53;&#x7CFB;&#x4E0D;&#x662F;&#x975E;&#x5E38;&#x5E9E;&#x5927;&#xFF0C;&#x8F6C;&#x6362;&#x6B21;&#x6570;&#x8F83;&#x5C11;&#xFF0C;&#x9996;&#x9009;<code>dynamic_cast</code>&#x3002;</li>
+<li>&#x82E5;&#x7EE7;&#x627F;&#x4F53;&#x7CFB;&#x5E9E;&#x5927;&#xFF0C;&#x8F6C;&#x6362;&#x9891;&#x7E41;&#xFF0C;&#x8003;&#x8651;&#x4F7F;&#x7528;<code>static_cast</code>&#x4EE5;&#x63D0;&#x9AD8;&#x7A0B;&#x5E8F;&#x6027;&#x80FD;&#x3002;</li>
+</ol>
+<p>&#x4F46;&#x5176;&#x5B9E;&#x4E00;&#x822C;&#x6765;&#x8BF4;&#x90FD;&#x4E0D;&#x9700;&#x8981;&#x8003;&#x8651;<code>dynamic_cast</code>&#x7684;&#x6548;&#x7387;&#x95EE;&#x9898;&#x3002;</p>
+<p>&#x4E0A;&#x8FF0;&#x5F52;&#x7EB3;&#x7684;&#x539F;&#x56E0;&#x5728;&#x4E8E;&#xFF1A;</p>
+<ol>
+<li><code>static_cast</code>&#x4E0D;&#x4F1A;&#x8FDB;&#x884C;&#x7C7B;&#x578B;&#x68C0;&#x67E5;&#xFF0C;&#x6240;&#x4EE5;&#x5BB9;&#x6613;&#x51FA;&#x9519;&#x3002;</li>
+<li><code>dynamic_cast</code>&#x4F9D;&#x6258;&#x865A;&#x51FD;&#x6570;&#x8868;&#x5DE5;&#x4F5C;&#xFF0C;&#x867D;&#x7136;&#x8FD0;&#x884C;&#x65F6;&#x68C0;&#x67E5;&#x63D0;&#x9AD8;&#x5B89;&#x5168;&#x6027;&#xFF0C;&#x4F46;&#x4E00;&#x5C42;&#x5C42;&#x67E5;&#x770B;&#x865A;&#x51FD;&#x6570;&#x8868;&#x4F1A;&#x964D;&#x4F4E;&#x7A0B;&#x5E8F;&#x6027;&#x80FD;&#x3002;</li>
+</ol>
+<h2 id="dyanmiccast&#x6027;&#x80FD;&#x95EE;&#x9898;"><code>dyanmic_cast</code>&#x6027;&#x80FD;&#x95EE;&#x9898;</h2>
+<p>&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x6765;&#x5B9E;&#x9645;&#x5B9E;&#x9A8C;&#x4E00;&#x4E0B;<code>dynamic_cast</code>&#x4E0E;<code>static_cast</code>&#x7684;&#x6027;&#x80FD;&#x5BF9;&#x6BD4;&#x3002;</p>
+<p>&#x8BE5;&#x5C0F;&#x7ED3;&#x5BF9;&#x5E94;&#x6587;&#x4EF6;&#x5939;&#x8DEF;&#x5F84;&#x4E3A;<code>./asset/dyn-eff</code>&#xFF0C;&#x5E76;&#x4F5C;&#x4E3A;&#x4E0B;&#x6587;&#x8DEF;&#x5F84;&#x7684;&#x6839;&#x76EE;&#x5F55;&#x3002;</p>
+<h3 id="&#x5BF9;&#x6BD4;&#x601D;&#x8DEF;">&#x5BF9;&#x6BD4;&#x601D;&#x8DEF;</h3>
+<p>&#x6784;&#x9020;&#x4E00;&#x4E2A;&#x5177;&#x6709;100&#x5C42;&#x7EE7;&#x627F;&#x5173;&#x7CFB;&#x7684;&#x590D;&#x6742;&#x7EE7;&#x627F;&#x4F53;&#x7CFB;&#xFF0C;&#x4F7F;&#x6BCF;&#x4E2A;&#x7C7B;&#x90FD;&#x6709;&#x81EA;&#x5DF1;&#x7684;&#x865A;&#x65B9;&#x6CD5;&#x6765;&#x8BA9;&#x865A;&#x51FD;&#x6570;&#x8868;&#x81A8;&#x80C0;&#xFF0C;&#x7136;&#x540E;&#x628A;&#x7528;&#x6839;&#x7236;&#x7C7B;&#x6307;&#x9488;&#x6307;&#x5411;&#x4E00;&#x4E2A;&#x53F6;&#x5B50;&#x5B50;&#x7C7B;&#x7684;&#x5BF9;&#x8C61;&#xFF0C;&#x7136;&#x540E;&#x91CD;&#x590D;&#x4E0D;&#x65AD;&#x5730;&#x8F6C;&#x5316;&#x56DE;&#x67D0;&#x4E2A;&#x5408;&#x6CD5;&#x7684;&#x5B50;&#x7C7B;&#x5BF9;&#x8C61;(&#x8FD9;&#x4E00;&#x6B65;&#x76EE;&#x7684;&#x662F;&#x8BA9;<code>static_cast</code>&#x4E5F;&#x80FD;&#x5408;&#x7406;&#x5730;&#x8F6C;&#x5316;&#x6307;&#x9488;&#xFF0C;&#x7B80;&#x5316;&#x4EE3;&#x7801;)&#xFF0C;&#x8BB0;&#x5F55;&#x7A0B;&#x5E8F;&#x4F7F;&#x7528;&#x65F6;&#x95F4;&#x3002;</p>
+<h3 id="&#x5B9E;&#x9645;&#x64CD;&#x4F5C;">&#x5B9E;&#x9645;&#x64CD;&#x4F5C;</h3>
+<p>&#x7531;&#x4E8E;&#x4EE3;&#x7801;&#x53C8;&#x81ED;&#x53C8;&#x957F;&#xFF0C;&#x4E0B;&#x6587;&#x90FD;&#x4E0D;&#x5C55;&#x793A;&#x4EE3;&#x7801;&#x3002;</p>
+<p>&#x5148;&#x4F7F;&#x7528;<code>python</code>&#x751F;&#x6210;&#x7EE7;&#x627F;&#x4F53;&#x7CFB;&#xFF0C;&#x5BF9;&#x5E94;<code>code-gen</code>&#x6587;&#x4EF6;&#x5939;&#x3002;</p>
+<p><code>stt-cast.cpp</code>&#x7528;&#x4E8E;&#x6D4B;&#x8BD5;<code>static_cast</code>&#xFF0C;<code>dyn-cast.cpp</code>&#x7528;&#x4E8E;&#x6D4B;&#x8BD5;<code>dynamic_cast.cpp</code>&#x3002;&#x88AB;&#x6D4B;&#x91CF;&#x90E8;&#x5206;&#x4EE3;&#x7801;&#x90FD;&#x88AB;&#x91CD;&#x590D;&#x5341;&#x4E07;&#x6B21;&#xFF0C;&#x4FDD;&#x8BC1;&#x6548;&#x679C;&#x660E;&#x663E;&#x3002;&#x4E14;&#x501F;&#x52A9;<code>assert</code>&#x9632;&#x6B62;&#x7F16;&#x8BD1;&#x5668;&#x4F18;&#x5316;&#x4EE3;&#x7801;&#x3002;&#x5728;MSVC Debug&#xFF0C;&#x5173;&#x95ED;&#x6240;&#x6709;&#x4F18;&#x5316;&#x9009;&#x9879;&#x4E0B;&#x7F16;&#x8BD1;&#x8FD0;&#x884C;&#x3002;</p>
+<h3 id="&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;--&#x7ED3;&#x8BBA;">&#x6D4B;&#x8BD5;&#x7ED3;&#x679C; &amp; &#x7ED3;&#x8BBA;</h3>
+<p>&#x7ED3;&#x679C;&#x5927;&#x81F4;&#x5982;&#x4E0B;&#xFF1A;</p>
+<ul>
+<li><code>static_cast</code>&#xFF1A;0.004s</li>
+<li><code>dynamic_cast</code>&#xFF1A;0.3s</li>
+</ul>
+<p>&#x786E;&#x5B9E;<code>dynamic_cast</code>&#x6548;&#x7387;&#x8FDC;&#x4F4E;&#x4E8E;<code>static_cast</code>&#x3002;</p>
+<p>&#x4F46;&#x8BF4;&#x5B9E;&#x8BDD;&#xFF0C;&#x5982;&#x679C;&#x7A0B;&#x5E8F;&#x9700;&#x8981;&#x8FDB;&#x884C;&#x8FD9;&#x4E48;&#x591A;&#x6B21;&#x5411;&#x4E0B;&#x8F6C;&#x6362;&#xFF0C;&#x6211;&#x89C9;&#x5F97;&#x662F;&#x4E0D;&#x662F;&#x5F97;&#x8003;&#x8651;&#x91CD;&#x6784;&#x4EE3;&#x7801;&#x4E86;&#x3002;&#x6240;&#x4EE5;&#x4E00;&#x822C;&#x6765;&#x8BF4;&#x6211;&#x4EEC;&#x4E0D;&#x9700;&#x8981;&#x8003;&#x8651;<code>dynamic_cast</code>&#x7684;&#x6548;&#x7387;&#x95EE;&#x9898;&#x3002;</p>
+<footer class="page-footer"><span class="copyright"><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="&#x77E5;&#x8BC6;&#x5171;&#x4EAB;&#x8BB8;&#x53EF;&#x534F;&#x8BAE;" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>&#x672C;&#x4F5C;&#x54C1;&#x91C7;&#x7528;<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">&#x77E5;&#x8BC6;&#x5171;&#x4EAB;&#x7F72;&#x540D;-&#x975E;&#x5546;&#x4E1A;&#x6027;&#x4F7F;&#x7528; 4.0 &#x56FD;&#x9645;&#x8BB8;&#x53EF;&#x534F;&#x8BAE;</a>&#x8FDB;&#x884C;&#x8BB8;&#x53EF;&#x3002;</span><span class="footer-modification">&#x6700;&#x8FD1;&#x66F4;&#x65B0;&#xFF1A;
+2021-06-01
+</span></footer>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="ISO_reinterpret_cast.html" class="navigation navigation-prev " aria-label="Previous page: ISO reinterpret_cast.md">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="static-poly.html" class="navigation navigation-next " aria-label="Next page: 静态多态性">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"向上、向下转换","level":"5.1","depth":1,"next":{"title":"静态多态性","level":"5.2","depth":1,"path":"static-poly.md","ref":"static-poly.md","articles":[]},"previous":{"title":"ISO reinterpret_cast.md","level":"4.4","depth":1,"path":"ISO_reinterpret_cast.md","ref":"ISO_reinterpret_cast.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-livereload","-lunr","-search","search-plus","-sharing","-highlight","code","prism","prism-themes","katex","splitter","tbfed-pagefooter"],"root":"./","styles":{"website":"styles/github-customed.css","pdf":"styles/github-customed.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc/4.0/\"><img alt=\"知识共享许可协议\" style=\"border-width:0\" src=\"https://i.creativecommons.org/l/by-nc/4.0/88x31.png\" /></a><br />本作品采用<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc/4.0/\">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。","modify_label":"最近更新：","modify_format":"YYYY-MM-DD"},"prism":{"css":["prism-themes/themes/prism-vsc-dark-plus.css"],"lang":{"c++":"cpp"}},"splitter":{},"code":{"copyButtons":true},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"prism-themes":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"JCav","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"C++ 类型转换运算符 研究报告","language":"zh-hans","gitbook":">=3.2.3","description":""},"file":{"path":"updown-cast.md","mtime":"2021-06-01T11:24:10.269Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-01T14:10:04.507Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-search-plus/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search-plus/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
