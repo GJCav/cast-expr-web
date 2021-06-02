@@ -159,7 +159,7 @@ try{
 ### 参考
 
 1. [详细说明](dynamic_cast.md)
-2. [标准定义](ISO dynamic_cast.md)
+2. [标准定义](ISO_dynamic_cast.md)
 3. [摘要页](README.md)
 
 
@@ -245,7 +245,7 @@ void run2() {
 ### 参考
 
 1. [详细说明](const_cast.md)
-2. [标准定义](ISO const_cast.md)
+2. [标准定义](ISO_const_cast.md)
 3. [摘要页](README.md)
 
 
@@ -439,7 +439,7 @@ cout << hex << pd->a; // 输出 value 的前两个字节的数据
 ### 参考
 
 1. [详细说明](reinterpret_cast.md)
-2. [标准定义](ISO reinterpret_cast.md)
+2. [标准定义](ISO_reinterpret_cast.md)
 3. [摘要页](README.md)
 
 
